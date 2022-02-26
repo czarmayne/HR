@@ -1,6 +1,9 @@
 # employee-monitoring ![employee-monitoring-status](https://img.shields.io/badge/DESIGN-INPROGRESS-lightgrey)
 Streamline the process of approval for overtime and leave
 
+# Principle
+https://12factor.net
+
 # Project B2B 
 
 A simple employee tracker that covers team configuration, overtime process, and leave process. It aims to streamline the employee monitoring and provide the necessary reports as needed. 
