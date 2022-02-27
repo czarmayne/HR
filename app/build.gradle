@@ -8,15 +8,14 @@
  */
 
 plugins {
-    // Apply the groovy plugin to also add support for Groovy (needed for Spock)
-    id 'groovy'
-
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
-
-    id 'org.springframework.boot' version '2.6.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    // Apply the groovy plugin to also add support for Groovy (needed for Spock)
+    id 'groovy'
+    id 'org.springframework.boot' version '2.6.4'
+    id "com.github.spotbugs" version "5.0.6"
 }
 
 group = 'com.b2b'
@@ -71,4 +70,28 @@ test {
 application {
     // Define the main class for the application.
     mainClass = 'com.b2b.employee.monitoring.App'
+}
+
+spotbugsMain {
+    reports {
+        html {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+            stylesheet = 'fancy-hist.xsl'
+        }
+    }
+}
+
+spotbugs {
+    ignoreFailures = false
+    showStackTraces = true
+    showProgress = true
+    effort = 'max'
+    reportLevel = 'high'
+    visitors = [ 'FindSqlInjection', 'SwitchFallthrough' ]
+    omitVisitors = [ 'FindNonShortCircuit' ]
+    reportsDir = file("$buildDir/spotbugs")
+    maxHeapSize = '1g'
+    extraArgs = [ '-nested:false' ]
+    jvmArgs = [ '-Duser.language=ja' ]
 }
