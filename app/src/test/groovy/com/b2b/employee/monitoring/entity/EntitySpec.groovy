@@ -22,7 +22,7 @@ class EntitySpec extends Specification {
         where: "input"
         test   | input                   | expected
         "ID 1" | defaultEmployee()       | 1L
-        "ID 1" | defaultEmployee(id: 2L) | 2L
+        "ID 2" | defaultEmployee(id: 2L) | 2L
     }
 
 }
