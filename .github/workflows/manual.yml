@@ -30,6 +30,7 @@ jobs:
       run: echo "Hello ${{ github.event.inputs.name }}"
       
     - name: Test Reusable Action
-      uses: czarmayne/mail-service/comment@v0.0.2
+      uses: czarmayne/mail-service/comment@v0.0.2-alpha
       with:
-        dotnet-version: 5.0.x
+        github-token: this_is_my_github_secret
+        shortcut-token: this_is_shortcut_secret
