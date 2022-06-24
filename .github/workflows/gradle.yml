@@ -30,6 +30,12 @@ jobs:
           java-version: 11
       - run: ./gradlew --continue | exit 1
         if: always()
+      - uses: vishnudxb/cancel-workflow@v1.2
+        if: failure()
+        with:
+          repo: czarmayne/employee-monitoring
+          workflow_id: ${{ github.run_id }}
+          access_token: ${{ github.token }}
         
   build2:
     name: Build 2
