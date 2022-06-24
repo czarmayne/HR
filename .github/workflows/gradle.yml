@@ -17,10 +17,9 @@ permissions:
   contents: read
 
 jobs:
+  
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
@@ -32,3 +31,39 @@ jobs:
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
         arguments: build
+    - run: exit 1
+    - uses: vishnudxb/cancel-workflow@v1.2
+      if: failure()
+      with:
+        repo: octocat/hello-world
+        workflow_id: ${{ github.run_id }}
+        access_token: ${{ github.token }}
+        
+  # should not exec since there is cancel workflow job      
+  values:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get Input Value
+        run: echo 'PR = "${{github.event.pull_request.number}}" ,State = "${{github.event.review.state}}" ,User = "${{github.actor}}" ,Event Name = "${{github.event_name}}" '
+  job-2:
+    name: Run job2
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - run: echo "running job2"
+
+  job-n:
+    name: Run job `n`
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - run: echo "running job2"
