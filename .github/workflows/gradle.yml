@@ -39,6 +39,28 @@ jobs:
         workflow_id: ${{ github.run_id }}
         access_token: ${{ github.token }}
         
+  build2:
+    name: Build 2
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      with:
+        arguments: build
+    - run: exit 1
+    - uses: vishnudxb/cancel-workflow@v1.2
+      if: failure()
+      with:
+        repo: octocat/hello-world
+        workflow_id: ${{ github.run_id }}
+        access_token: ${{ github.token }}
+        
   # should not exec since there is cancel workflow job      
   values:
     runs-on: ubuntu-latest
