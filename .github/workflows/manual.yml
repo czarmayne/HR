@@ -24,7 +24,7 @@ on:
 
 jobs:
   job1:
-    uses: .github/workflows/action/reusable.yml@main
+    uses: .github/workflows/reusable.yml@main
 
   job2:
     runs-on: ubuntu-latest
