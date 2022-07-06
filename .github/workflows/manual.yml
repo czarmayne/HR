@@ -1,39 +1,42 @@
 # This is a basic workflow that is manually triggered
-# name: Manual workflow
+name: Manual workflow
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
-# on:
-#   workflow_dispatch:
-#     # Inputs the workflow accepts.
-#     inputs:
-#       name:
-#         # Friendly description to be shown in the UI instead of 'name'
-#         description: 'Person to greet'
-#         # Default value if no value is explicitly provided
-#         default: 'World'
-#         # Input has to be provided for the workflow to run
-#         required: true
-#     branch:
-#         required: true
-#         default: 'main'
-name: Call a reusable workflow and use its outputs
-
 on:
   workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Person to greet'
+        # Default value if no value is explicitly provided
+        default: 'World'
+        # Input has to be provided for the workflow to run
+        required: true
+    branch:
+        required: true
+        default: 'main'
+# name: Call a reusable workflow and use its outputs
 
-jobs:
-  job1:
-    uses: ./.github/workflows/reusable.yml
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    steps:
-      - run: echo ${{ needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# on:
+#   workflow_dispatch:
+
 # jobs:
-#   test_reusable:
-#     uses: czarmayne/employee-monitoring/.github/workflows/action/reusable.yml@main
+  # job1:
+  #   uses: ./.github/workflows/reusable.yml
+  # job2:
+  #   runs-on: ubuntu-latest
+  #   needs: job1
+  #   steps:
+  #     - run: echo ${{ needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test_reusable:
+    uses: ./.github/workflows/action/reusable.yml
+    with:
+      username: ${{github.event.inputs.name}}
 
 #   use_reusable:
 #     uses: czarmayne/employee-monitoring/.github/workflows/action/reusable.yml@main
