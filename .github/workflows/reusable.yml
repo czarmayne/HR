@@ -7,6 +7,11 @@ on:
         description: "input name"
         required: true
         type: string
+      condition:
+        description: "input name"
+        required: true
+        type: boolean
+        default: true
 
 concurrency:
   group: ${{ github.ref }}
@@ -21,7 +26,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
-      - name: "Greet the user"
+      - name: "Echo Output"
+        run: echo ${{ inputs.condition }} ${{ inputs.username }}
+      - if: ${{ inputs.condition}}
+        name: "Greet the user"
         run: echo "Hello ${{ inputs.username }}"
 # name: Reusable workflow
 

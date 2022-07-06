@@ -37,6 +37,7 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       username: ${{github.event.inputs.name}}
+      condition: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
 
 #   use_reusable:
 #     uses: czarmayne/employee-monitoring/.github/workflows/action/reusable.yml@main
