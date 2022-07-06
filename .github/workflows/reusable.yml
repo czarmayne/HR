@@ -4,8 +4,13 @@ on:
   workflow_call:
     inputs:
       username:
-        required: true
-        type: string
+        description: "input name"
+        # required: true
+        # type: string
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   # This workflow contains a single job called "greet"
