@@ -21,7 +21,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   use_reusable:
-    uses: .github/workflows/action/reusable.yml
+    uses: .github/workflows/action/reusable.yml@main
     with:
       username: ${{github.event.inputs.name}}
 
