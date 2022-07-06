@@ -33,10 +33,18 @@ jobs:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 # jobs:
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v1
+    - name: Branch name
+      run: echo running on branch ${GITHUB_REF##*/}
+
   job3:
     uses: ./.github/workflows/reusable.yml
     with:
-      username: ${{github.event.inputs.name}}
+      username: ${{github.event.inputs.name}} ${GITHUB_REF##*/}
       condition: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
 
 #   use_reusable:
