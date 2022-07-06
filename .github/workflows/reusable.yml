@@ -12,6 +12,11 @@ on:
         required: true
         type: boolean
         default: true
+      branch:
+        description: 'Enter the branch to run unit tests from'
+        required: true
+        default: 'main'
+        type: string
 
 concurrency:
   group: ${{ github.ref }}
@@ -27,7 +32,7 @@ jobs:
     steps:
     # Runs a single command using the runners shell
       - name: "Echo Output"
-        run: echo "${{ github.ref }} ${GITHUB_REF##*/} =========${{ inputs.condition }} ${{ inputs.username }}"
+        run: echo "${{ github.event.inputs.branch }} ${{ github.ref }} ${GITHUB_REF##*/} =========${{ inputs.condition }} ${{ inputs.username }}"
       - if: ${{ inputs.condition}}
         name: "Greet the user"
         run: echo "Hello ${{ inputs.username }}"

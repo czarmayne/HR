@@ -46,7 +46,7 @@ jobs:
     with:
       username: ${{github.event.inputs.name}} ${GITHUB_REF##*/}
       condition: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
-
+      branch: ${GITHUB_REF##*/}
 #   use_reusable:
 #     uses: czarmayne/employee-monitoring/.github/workflows/action/reusable.yml@main
 #     with:
