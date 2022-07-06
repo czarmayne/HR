@@ -5,8 +5,8 @@ on:
     inputs:
       username:
         description: "input name"
-        # required: true
-        # type: string
+        required: true
+        type: string
 
 concurrency:
   group: ${{ github.ref }}
