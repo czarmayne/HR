@@ -23,14 +23,28 @@ on:
 #   workflow_dispatch:
 
 jobs:
-  job1:
-    name: Test Git History
+  getPreviousPreviousChanges:
     runs-on: ubuntu-latest
+
     steps:
-      - run: |
-          prevcommit=git rev-parse HEAD~2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Fetch Previous Previous Commit Changes
+        id: previousPreviousChanges
+        run: |
+          PREVIOUS_COMMIT_SHA=$(git rev-parse HEAD~2)
+          echo "::set-output name=previous_commit_sha::$PREVIOUS_COMMIT_SHA"
+
+      - name: Print Previous Commit SHA
+        run: echo "Previous Commit SHA: ${{ steps.previousPreviousChanges.outputs.previous_commit_sha }}"
+
+      - name: Check Diff with Previous Previous Commit
+        run: |
+          prevcommit=${{ steps.previousPreviousChanges.outputs.previous_commit_sha }}
           echo $prevcommit
-          git --no-pager diff --name-only $prevcommit ${{ github.sha }} | sort -u 
+          git --no-pager diff --name-only $prevcommit c2c64d767a4e15620818e8273e6579b45e7c86b5 | sort -u
+
     
   # job1:
   #   uses: ./.github/workflows/reusable.yml
