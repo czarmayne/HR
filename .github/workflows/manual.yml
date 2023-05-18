@@ -23,6 +23,15 @@ on:
 #   workflow_dispatch:
 
 jobs:
+  job1:
+    name: Test Git History
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          prevcommit=git rev-parse HEAD~2
+          echo $prevcommit
+          git --no-pager diff --name-only $prevcommit ${{ github.sha }} | sort -u 
+    
   # job1:
   #   uses: ./.github/workflows/reusable.yml
   # job2:
