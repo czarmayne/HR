@@ -9,7 +9,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        
+      - name: Fetch main branch
+        run: git fetch origin main
+        
+      - name: Git Logs
+        run: |
+          git log | head -n 5
+          echo "======"
+          git log | grep 'commit' | head -n 2 | tail -n 1
+
 
       - name: Fetch Previous Previous Commit Changes
         id: previousPreviousChanges
