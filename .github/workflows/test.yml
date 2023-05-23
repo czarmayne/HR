@@ -23,6 +23,4 @@ jobs:
 
       - name: Check Diff with Previous Previous Commit
         run: |
-          prevcommit=${{ steps.previousPreviousChanges.outputs.previous_commit_sha }}
-          echo $prevcommit
-          git --no-pager diff --name-only $prevcommit c2c64d767a4e15620818e8273e6579b45e7c86b5 | sort -u
+          git --no-pager diff --name-only ${{ steps.previousPreviousChanges.outputs.previous_commit_sha }} ${{ github.sha }} | sort -u
