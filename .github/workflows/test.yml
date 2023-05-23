@@ -14,7 +14,7 @@ jobs:
       - name: Fetch Previous Previous Commit Changes
         id: previousPreviousChanges
         run: |
-          PREVIOUS_COMMIT_SHA=$(git log | grep 'commit' | tail -n 2 | awk -F"commit" '{print $2}' | tail -n 1)
+          PREVIOUS_COMMIT_SHA=$(git log | grep 'commit' | tail -n 2 | sed -n '$-1p' | awk -F"commit" '{print $2}')
           echo "::set-output name=previous_commit_sha::$PREVIOUS_COMMIT_SHA"
 
       - name: Print Previous Commit SHA
