@@ -16,9 +16,9 @@ jobs:
         
       - name: Git Logs
         run: |
-          git log | head -n 5
+          git log | grep 'commit' | head -n 5
           echo "======"
-          git log | grep 'commit' | head -n 2 | tail -n 1
+          git log | grep 'commit' | head -n 3 | tail -n 1
 
 
       - name: Fetch Previous Previous Commit Changes
